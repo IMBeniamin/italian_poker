@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Round</title>
+    <style>
+        .game-container {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: stretch;
+            height: 100%;
+            min-height: 100%;
+        }
+
+        .row-container {
+            flex: 1 1 auto;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-content: center;
+        }
+
+        .player-container {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-around;
+            align-content: center;
+            align-items: stretch;
+        }
+        .player1-container {
+            background-color: green;
+        }
+        .player2-container {
+            background-color: red;
+        }
+        .winner-container {
+            background-color: gray;
+        }
+        .player3-container {
+            background-color: blue;
+        }
+        .player4-container {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="player-container player1-container">
+            Player1
+        </div>
+    
+        <div class="row-container middle-row-container">
+            <div class="player-container player2-container">
+                Player2
+            </div>
+            
+            <div class="player-container winner-container">
+                Winner player 1
+            </div>
+            
+            <div class="player-container player3-container">
+                Player3
+            </div>
+        </div>
+        <div class="player-container player4-container">
+            Player4
+        </div>
+        
+    </div>
+</body>
+</html>

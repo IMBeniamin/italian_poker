@@ -1,0 +1,168 @@
+[
+        {
+                "identifier": "7_S",
+                "fancyName": "Seven of Spades",
+                "points": 8
+        },
+        {
+                "identifier": "7_C",
+                "fancyName": "Seven of Clubs",
+                "points": 9
+        },
+        {
+                "identifier": "7_D",
+                "fancyName": "Seven of Diamonds",
+                "points": 10
+        },
+        {
+                "identifier": "7_H",
+                "fancyName": "Seven of Hearts",
+                "points": 11
+        },
+
+        {
+                "identifier": "8_S",
+                "fancyName": "Eight of Spades",
+                "points": 9
+        },
+        {
+                "identifier": "8_C",
+                "fancyName": "Eight of Clubs",
+                "points": 10
+        },
+        {
+                "identifier": "8_D",
+                "fancyName": "Eight of Diamonds",
+                "points": 11
+        },
+        {
+                "identifier": "8_H",
+                "fancyName": "Eight of Hearts",
+                "points": 12
+        },
+
+        {
+                "identifier": "9_S",
+                "fancyName": "Nine of Spades",
+                "points": 10
+        },
+        {
+                "identifier": "9_C",
+                "fancyName": "Nine of Clubs",
+                "points": 11
+        },
+        {
+                "identifier": "9_D",
+                "fancyName": "Nine of Diamonds",
+                "points": 12
+        },
+        {
+                "identifier": "9_H",
+                "fancyName": "Nine of Hearts",
+                "points": 13
+        },
+
+        {
+                "identifier": "10_S",
+                "fancyName": "Ten of Spades",
+                "points": 11
+        },
+        {
+                "identifier": "10_C",
+                "fancyName": "Ten of Clubs",
+                "points": 12
+        },
+        {
+                "identifier": "10_D",
+                "fancyName": "Ten of Diamonds",
+                "points": 13
+        },
+        {
+                "identifier": "10_H",
+                "fancyName": "Ten of Hearts",
+                "points": 14
+        },
+        {
+                "identifier": "11_S",
+                "fancyName": "Jack of Spades",
+                "points": 12
+        },
+        {
+                "identifier": "11_C",
+                "fancyName": "Jack of Clubs",
+                "points": 13
+        },
+        {
+                "identifier": "11_D",
+                "fancyName": "Jack of Diamonds",
+                "points": 14
+        },
+        {
+                "identifier": "11_H",
+                "fancyName": "Jack of Hearts",
+                "points": 15
+        },
+
+        {
+                "identifier": "12_S",
+                "fancyName": "Queen of Spades",
+                "points": 13
+        },
+        {
+                "identifier": "12_C",
+                "fancyName": "Queen of Clubs",
+                "points": 14
+        },
+        {
+                "identifier": "12_D",
+                "fancyName": "Queen of Diamonds",
+                "points": 15
+        },
+        {
+                "identifier": "12_H",
+                "fancyName": "Queen of Hearts",
+                "points": 16
+        },
+
+        {
+                "identifier": "13_S",
+                "fancyName": "King of Spades",
+                "points": 14
+        },
+        {
+                "identifier": "13_C",
+                "fancyName": "King of Clubs",
+                "points": 15
+        },
+        {
+                "identifier": "13_D",
+                "fancyName": "King of Diamonds",
+                "points": 16
+        },
+        {
+                "identifier": "13_H",
+                "fancyName": "King of Hearts",
+                "points": 17
+        },
+
+        {
+                "identifier": "14_S",
+                "fancyName": "Ace of Spades",
+                "points": 15
+        },
+        {
+                "identifier": "14_C",
+                "fancyName": "Ace of Clubs",
+                "points": 16
+        },
+        {
+                "identifier": "14_D",
+                "fancyName": "Ace of Diamonds",
+                "points": 17
+        },
+        {
+                "identifier": "14_H",
+                "fancyName": "Ace of Hearts",
+                "points": 18
+        }
+]
