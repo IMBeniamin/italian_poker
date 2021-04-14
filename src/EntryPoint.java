@@ -8,6 +8,7 @@ import Poker.io.HtmlUserInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class EntryPoint {
     public static void main(String[] args) {
@@ -23,10 +24,23 @@ public class EntryPoint {
 
         players.add(new Player("Derpi"));
         players.add(new Player("Solare"));
-        players.add(new Player("Mora"));
+        players.add(new Player("Duolingo"));
         players.add(cheater);
 
-        Game<HtmlUserInterface> game1 = new Game<>(HtmlUserInterface.class, players);
-        game1.play();
+        Game<?> game = new Game<>(CmdUserInterface.class, players);;
+
+        System.out.println("Which type of user interface do you want?\n" +
+                "Command Line -- c\n" +
+                "Web Interface -- w\n");
+
+        String userInput = new Scanner(System.in).nextLine();
+        switch (userInput) {
+            case "c\n":
+                game = new Game<>(CmdUserInterface.class, players);
+            case "w\n":
+                game = new Game<>(HtmlUserInterface.class, players);
+                break;
+        }
+        game.play();
     }
 }
