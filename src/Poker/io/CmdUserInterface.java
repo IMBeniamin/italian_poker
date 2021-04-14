@@ -21,7 +21,7 @@ public class CmdUserInterface implements UserInterface<CmdUserInterface> {
         for (Player player : game.getPlayers()) {
             this.print(player);
         }
-        Player winner = game.calcWinner();
+        Player winner = game.getWinner();
         this.print("Winner is player: " + winner.getName() + " with " + winner.getHandRank());
         System.out.println("--------------------------------------------------------------------");
         System.out.println("Round End!");

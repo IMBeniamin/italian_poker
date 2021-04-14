@@ -117,7 +117,7 @@ public class HtmlUserInterface implements UserInterface<HtmlUserInterface> {
         htmlOut.append("\n        <div class=\"row-container middle-row-container\">\n");
         htmlOut.append(players.get(1).toHtml());
         htmlOut.append("\n<div class=\"winner-container\">\n" + "                <p>Winner: ");
-        htmlOut.append(game.calcWinner().getName()).append("</p>\n");
+        htmlOut.append(game.getWinner().getName()).append("</p>\n");
         htmlOut.append("            </div>\n\n");
         htmlOut.append(players.get(2).toHtml());
         htmlOut.append("        </div>\n");
