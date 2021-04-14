@@ -3,6 +3,8 @@ package Poker.components;
 import Poker.util.Suits;
 import Poker.util.SuitsIdentifier;
 
+import java.net.URL;
+
 public class Card {
     private final String identifier;
     private final String fancyName;
@@ -36,6 +38,14 @@ public class Card {
     public String toString() {
         return this.fancyName;
         // maybe improve in the future
+    }
+
+    public String toHtml() {
+        return "<div class=\"card\">\n" +
+                "<img src=\"" + getClass().getResource("../res/cards/" + this.identifier + ".jpg") +
+                "\" alt=\"" + this.identifier + "\">\n" +
+                "<p>" + this.fancyName + "</p>\n" +
+                "</div>\n";
     }
 
     public Suits getSuit() {

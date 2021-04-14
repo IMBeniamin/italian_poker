@@ -45,6 +45,27 @@ public class Player implements Comparable<Player>{
         return outData.toString();
     }
 
+    public String toHtml() {
+        StringBuilder htmlData = new StringBuilder();
+        htmlData.append("<div class=\"player-container\">\n");
+        htmlData.append("<div class=\"header\">");
+        htmlData.append("<p>").append(this.name).append("</p>\n");
+        htmlData.append("</div>\n\n");
+
+        htmlData.append("<div class=\"cards-container\">\n");
+        for (Card card : this.hand) {
+            htmlData.append(card.toHtml());
+        }
+        htmlData.append("</div>\n");
+
+        htmlData.append("<div class=\"header\">");
+        htmlData.append("<p>").append(this.handRank).append("</p>\n");
+        htmlData.append("</div>\n\n");
+
+        htmlData.append("</div>\n");
+        return htmlData.toString();
+    }
+
     @Override
     public int compareTo(Player o) {
         return Integer.compare(this.getHandRank().ordinal(), o.getHandRank().ordinal());

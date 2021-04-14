@@ -4,69 +4,205 @@
     <meta charset="UTF-8">
     <title>Round</title>
     <style>
+        body {
+            background-color: black;
+        }
         .game-container {
             display: flex;
             flex-flow: column nowrap;
-            align-items: stretch;
-            height: 100%;
-            min-height: 100%;
+            align-items: center;
         }
 
         .row-container {
             flex: 1 1 auto;
             display: flex;
             flex-flow: row nowrap;
-            justify-content: space-between;
+            justify-content: space-around;
             align-content: center;
         }
 
         .player-container {
+            flex: 1 1 auto;
+            display: flex;
+            flex-flow: column nowrap;
+            align-content: center;
+            min-width: 33%;
+            max-width: 33%;
+        }
+
+        .cards-container {
             display: flex;
             flex-flow: row nowrap;
-            justify-content: space-around;
-            align-content: center;
-            align-items: stretch;
+            
         }
-        .player1-container {
-            background-color: green;
-        }
-        .player2-container {
-            background-color: red;
-        }
+
         .winner-container {
-            background-color: gray;
+            flex: 1 1 auto;
+            min-width: 33%;
+            max-width: 33%;
+
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: center;
+            
         }
-        .player3-container {
-            background-color: blue;
+
+        .winner-container > p{
+            color: white;
+            font-size: 1.9em;
+            font-family: sans-serif;
         }
-        .player4-container {
-            background-color: yellow;
+
+        .header > p {
+            text-align: center;
+            font-size: 1.7em;
+            font-family: sans-serif;
+            color: white;
+            margin: 0.2em;
+        }
+
+        .card {
+            flex: 1 1 auto;
+
+            display: flex;
+            flex-flow: column nowrap;
+        }
+
+        .card > img {
+            max-width:100%;
+        }
+        .card > p {
+            text-align: center;
+            font-size: 1em;
+            font-family: sans-serif;
+            margin: 0;
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="game-container">
-        <div class="player-container player1-container">
-            Player1
+        <div class="player-container">
+            <div class="header">
+                <p class="player-name">Player 1</p>
+            </div>
+
+            <div class="cards-container">
+                <div class="card">
+                    <img src="../src/Poker/res/cards/10_C.jpg" alt="10_C">
+                    <p>Dieci di cuori</p>
+                </div>
+                <div class="card">
+                    <img src="../src/Poker/res/cards/11_D.jpg" alt="11_D">
+                    <p>Dieci di cuori</p>
+                </div>
+                <div class="card">
+                    <img src="../src/Poker/res/cards/12_H.jpg" alt="12_H">
+                    <p>Dieci di cuori</p>
+                </div>
+                <div class="card">
+                    <img src="../src/Poker/res/cards/13_S.jpg" alt="13_S">
+                    <p>Dieci di cuori</p>
+                </div>
+                <div class="card">
+                    <img src="../src/Poker/res/cards/14_D.jpg" alt="14_D">
+                    <p>Dieci di cuori</p>
+                </div>
+            </div>
         </div>
     
         <div class="row-container middle-row-container">
-            <div class="player-container player2-container">
-                Player2
+            <div class="player-container">
+                <div class="header">
+                    <p class="player-name">Player 2</p>
+                </div>
+
+                <div class="cards-container">
+                    <div class="card">
+                        <img src="../src/Poker/res/cards/10_C.jpg" alt="10_C">
+                        <p>Dieci di cuori</p>
+                    </div>
+                    <div class="card">
+                        <img src="../src/Poker/res/cards/11_D.jpg" alt="11_D">
+                        <p>Dieci di cuori</p>
+                    </div>
+                    <div class="card">
+                        <img src="../src/Poker/res/cards/12_H.jpg" alt="12_H">
+                        <p>Dieci di cuori</p>
+                    </div>
+                    <div class="card">
+                        <img src="../src/Poker/res/cards/13_S.jpg" alt="13_S">
+                        <p>Dieci di cuori</p>
+                    </div>
+                    <div class="card">
+                        <img src="../src/Poker/res/cards/14_D.jpg" alt="14_D">
+                        <p>Dieci di cuori</p>
+                    </div>
+                </div>
             </div>
             
-            <div class="player-container winner-container">
-                Winner player 1
+            <div class="winner-container">
+                <p>Winner player 1</p>
             </div>
             
-            <div class="player-container player3-container">
-                Player3
+            <div class="player-container">
+                <div class="header">
+                    <p class="player-name">Player 3</p>
+                </div>
+
+                <div class="cards-container">
+                    <div class="card">
+                        <img src="../src/Poker/res/cards/10_C.jpg" alt="10_C">
+                        <p>Dieci di cuori</p>
+                    </div>
+                    <div class="card">
+                        <img src="../src/Poker/res/cards/11_D.jpg" alt="11_D">
+                        <p>Dieci di cuori</p>
+                    </div>
+                    <div class="card">
+                        <img src="../src/Poker/res/cards/12_H.jpg" alt="12_H">
+                        <p>Dieci di cuori</p>
+                    </div>
+                    <div class="card">
+                        <img src="../src/Poker/res/cards/13_S.jpg" alt="13_S">
+                        <p>Dieci di cuori</p>
+                    </div>
+                    <div class="card">
+                        <img src="../src/Poker/res/cards/14_D.jpg" alt="14_D">
+                        <p>Dieci di cuori</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="player-container player4-container">
-            Player4
+        <div class="player-container">
+            <div class="header">
+                <p class="player-name"23p s;>Player 4</p>
+            </div>
+
+            <div class="cards-container">
+                <div class="card">
+                    <img src="../src/Poker/res/cards/10_C.jpg" alt="10_C">
+                    <p>Dieci di cuori</p>
+                </div>
+                <div class="card">
+                    <img src="../src/Poker/res/cards/11_D.jpg" alt="11_D">
+                    <p>Dieci di cuori</p>
+                </div>
+                <div class="card">
+                    <img src="../src/Poker/res/cards/12_H.jpg" alt="12_H">
+                    <p>Dieci di cuori</p>
+                </div>
+                <div class="card">
+                    <img src="../src/Poker/res/cards/13_S.jpg" alt="13_S">
+                    <p>Dieci di cuori</p>
+                </div>
+                <div class="card">
+                    <img src="../src/Poker/res/cards/14_D.jpg" alt="14_D">
+                    <p>Dieci di cuori</p>
+                </div>
+            </div>
         </div>
-        
     </div>
 </body>
 </html>

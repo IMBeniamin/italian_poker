@@ -13,7 +13,7 @@ public class CmdUserInterface implements UserInterface<CmdUserInterface> {
     }
 
     public boolean getAction() {
-        System.out.println("Do you want to play another round? [y] -- yes [any key] -- no");
+        System.out.println("Do you want to play another round? \n[y] -- yes \n[any key] -- no");
         return new Scanner(System.in).nextLine().equals("y");
     }
 

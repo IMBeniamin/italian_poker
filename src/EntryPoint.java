@@ -3,6 +3,7 @@ import Poker.components.CheatPlayer;
 import Poker.components.Game;
 import Poker.components.Player;
 import Poker.io.CmdUserInterface;
+import Poker.io.HtmlUserInterface;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,9 +24,9 @@ public class EntryPoint {
         players.add(new Player("Derpi"));
         players.add(new Player("Solare"));
         players.add(new Player("Mora"));
-        players.add(cheater); // todo non funziona, da flush
+        players.add(cheater);
 
-        Game<CmdUserInterface> game1 = new Game<>(CmdUserInterface.class, players);
+        Game<HtmlUserInterface> game1 = new Game<>(HtmlUserInterface.class, players);
         game1.play();
     }
 }
