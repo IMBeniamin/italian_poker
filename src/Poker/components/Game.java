@@ -46,7 +46,7 @@ public final class Game <UI extends UserInterface> {
      * @return List of the players that are currently participating in the game
      */
     public List<Player> getPlayers() {
-        // todo return immutable instance of the players
+        // should return immutable instance of the players
         return this.players;
     }
 

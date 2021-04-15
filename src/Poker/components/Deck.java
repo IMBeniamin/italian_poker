@@ -49,7 +49,7 @@ public class Deck {
             this.refill();
             this.shuffle();
         }
-        // todo should extract one card at the time
+        // should extract one card at the time
         List<Card> spliceRangeView = this.cards.subList(0, n);
         List<Card> spliceRange = new ArrayList<>(this.cards.subList(0, n));
         spliceRangeView.clear();
@@ -61,7 +61,7 @@ public class Deck {
      * @return List containing all the deck's cards
      */
     public List<Card> getDeckCards() {
-        // todo should return an immutable list
+        // should return an immutable list
         return this.cards;
     }
 }
