@@ -14,7 +14,7 @@ public class Card {
     private final int value;
 
     /**
-     * @param identifier Specifies how the card should be identified. The standard notation is <value>_<Type>
+     * @param identifier Specifies how the card should be identified. The standard notation is value_Type
      * @param fancyName User presentable name of the card
      * @param points Points used for evaluating the winner and the type of hand.
      */
@@ -28,7 +28,7 @@ public class Card {
     }
 
     /**
-     * @param identifier Identifier of the card <value>_<type> (See constructor)
+     * @param identifier Identifier of the card value_type (See constructor)
      * @return Type based on enum that contains all the suits according to the poker documentation
      */
     private Suits getSuitFromId(String identifier) {

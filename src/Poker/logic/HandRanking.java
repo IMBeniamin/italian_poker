@@ -5,19 +5,27 @@ import Poker.util.Suits;
 
 import java.util.*;
 
-//todo add very detailed documentation for this
 
-
+/**
+ * Interface which contains a method which is implemented through a lambda later and provides a way to call it
+ */
 interface HandRankingCalculator {
     boolean calculate(HashMap<Suits, Integer> suitsMap, HashMap<Integer, Integer> valuesMap);
 }
 
+/**
+ * Static utility class that maps each rank of poker hand to a lambda which calculates it based on 2 maps provided to the function
+ * The map can then be iterated through and all methods can be applied to the current player hand
+ */
 public class HandRanking {
+    /**
+     * A LinkedHashMap is needed as the order of assignment of the lambdas to the map should be preserved
+     */
     static final private LinkedHashMap<PokerHands, HandRankingCalculator> map = new LinkedHashMap<>();
 
     static {
         // It is important to insert the poker hand types from the MOST IMPORTANT to THE LEAST IMPORTANT
-
+        // Each lambda is added to the map using the put method
         HandRanking.map.put(PokerHands.RoyalFlush, (suitsMap, valuesMap) -> {
             for (int i = 10; i < 15; i++)
                 if (!valuesMap.containsKey(i)) return false;

@@ -14,8 +14,16 @@ import java.util.Scanner;
 // this would allow to have an interactive app using ajax or other real time
 // framework that allows for real time page updates without refreshing
 
+/**
+ * Implementation of the generic user interface used for the interaction with the user with an Html file.
+ */
 public class HtmlUserInterface implements UserInterface<HtmlUserInterface> {
 
+    /**
+     * This function serializes the entire game state to html.
+     * @param game Game object from which data should be extracted
+     * @return String that contains the game state and is a complete Html document
+     */
     private String roundToHtml(Game<HtmlUserInterface> game) {
         StringBuilder htmlOut = new StringBuilder();
         List<Player> players = game.getPlayers();
@@ -129,6 +137,10 @@ public class HtmlUserInterface implements UserInterface<HtmlUserInterface> {
         return htmlOut.toString();
     }
 
+    /**
+     * Writes all calculated data to the htmlOutput.html file that is created in %temp% and opens it
+     * @param game Game from which data should be extracted
+     */
     @Override
     public void update(Game<HtmlUserInterface> game) {
         System.out.println("Round played, the output will soon pop up on your screen!");
@@ -141,7 +153,7 @@ public class HtmlUserInterface implements UserInterface<HtmlUserInterface> {
             File htmlData = new File(tempDir + fileName);
 
             htmlOut.append(rawHtmlData);
-
+            // used to open the file
             Desktop.getDesktop().browse(htmlData.toURI());
 
             htmlOut.close();
@@ -150,11 +162,18 @@ public class HtmlUserInterface implements UserInterface<HtmlUserInterface> {
         catch (IOException e) { e.printStackTrace(); }
     }
 
+    /**
+     * Called when the game ends
+     */
     @Override
     public void gameEnd() {
         System.out.println("Game has ended!");
     }
 
+    /**
+     * Gets an action from the user using the console
+     * @return True if the user answers y, false otherwise
+     */
     @Override
     public boolean getAction() {
         System.out.println("Do you want to play another round? \n[y] -- yes \n[any key] -- no");

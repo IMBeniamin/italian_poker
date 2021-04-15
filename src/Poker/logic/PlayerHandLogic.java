@@ -7,6 +7,9 @@ import Poker.util.Suits;
 
 import java.util.HashMap;
 
+/**
+ * Allows the user to interact with the hand rank calculation algorithms which returns the type of hand the user has
+ */
 public class PlayerHandLogic {
     static public PokerHands calcHandRank(Player player) {
         HashMap<Suits, Integer> suitsMap = HandMapper.suitsMapper(player);
@@ -15,9 +18,15 @@ public class PlayerHandLogic {
     }
 }
 
-// todo add very detailed documentation
-
+/**
+ * Contains the methods that generate the maps that are used by the algorithms to calculate the player rank hand
+ */
 class HandMapper {
+    /**
+     * Generates a map in which to each value of card in the player's hand is associated the number of occurrences of the same value
+     * @param player Player from which data will be extracted
+     * @return A map that contains all hand values and their associated values
+     */
     static public HashMap<Integer, Integer> valueMapper(Player player) {
 
         HashMap<Integer, Integer> valuesMap = new HashMap<>();
@@ -27,6 +36,12 @@ class HandMapper {
         }
         return valuesMap;
     }
+
+    /**
+     * Generates a map in which to each suit type is associated the number of occurrences found in the player's hand
+     * @param player Player from which data will be extracted
+     * @return A map that contains all possible suits values and their associated number of occurrences
+     */
     static public HashMap<Suits, Integer> suitsMapper(Player player) {
 
         HashMap<Suits, Integer> suitsMap = new HashMap<>();
@@ -36,7 +51,6 @@ class HandMapper {
         suitsMap.put(Suits.Spades, 0);
 
         for (Card card : player.getHand()) {
-                //todo add documentation
                 Suits temp = card.getSuit();
                 suitsMap.merge(temp, 1, Integer::sum);
             }
