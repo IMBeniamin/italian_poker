@@ -1,9 +1,9 @@
 package Poker.components;
 
 import Poker.logic.PlayerHandLogic;
+import Poker.util.Pair;
 import Poker.util.PokerHands;
 import Poker.util.Suits;
-import com.sun.tools.javac.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -2,9 +2,9 @@ package Poker.logic;
 
 import Poker.components.Card;
 import Poker.components.Player;
+import Poker.util.Pair;
 import Poker.util.PokerHands;
 import Poker.util.Suits;
-import com.sun.tools.javac.util.Pair;
 
 import java.util.*;
 
