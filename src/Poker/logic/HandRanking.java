@@ -4,7 +4,7 @@ import Poker.components.Card;
 import Poker.components.Player;
 import Poker.util.PokerHands;
 import Poker.util.Suits;
-import javafx.util.Pair;
+import com.sun.tools.javac.util.Pair;
 
 import java.util.*;
 
@@ -41,9 +41,9 @@ public class HandRanking {
         HandRanking.map.put(PokerHands.StraightFlush, (suitsMap, valuesMap) -> {
             Pair<Boolean, Integer> straight = HandRanking.map.get(PokerHands.Straight).calculate(suitsMap, valuesMap);
             Pair<Boolean, Integer> flush = HandRanking.map.get(PokerHands.Flush).calculate(suitsMap, valuesMap);
-            boolean isStraightFlush = straight.getKey() && flush.getKey();
+            boolean isStraightFlush = straight.fst && flush.fst;
 
-            return new Pair<>(isStraightFlush, straight.getValue() + flush.getValue());
+            return new Pair<>(isStraightFlush, straight.snd + flush.snd);
         });
         HandRanking.map.put(PokerHands.FourOfAKind, (suitsMap, valuesMap) -> {
             for (Map.Entry<Integer, List<Card>> valueEntry : valuesMap.entrySet())
@@ -61,7 +61,7 @@ public class HandRanking {
         HandRanking.map.put(PokerHands.FullHouse, (suitsMap, valuesMap) -> {
             Pair<Boolean, Integer> onePair = HandRanking.map.get(PokerHands.OnePair).calculate(suitsMap, valuesMap);
             Pair<Boolean, Integer> threeOfKind = HandRanking.map.get(PokerHands.ThreeOfAKind).calculate(suitsMap, valuesMap);
-            return new Pair<>(onePair.getKey() && threeOfKind.getKey(), onePair.getValue() + threeOfKind.getValue());
+            return new Pair<>(onePair.fst && threeOfKind.fst, onePair.snd + threeOfKind.snd);
         });
 
         HandRanking.map.put(PokerHands.Straight, (suitsMap, valuesMap) -> {
@@ -123,11 +123,11 @@ public class HandRanking {
             // sets the current rank variable to the calculated value based on rank's handRankingCalculator
             currentHandRank = rank.getValue().calculate(player.getSuitsMap(), player.getValuesMap());
             // checks if the calculations had a positive result
-            if (currentHandRank.getKey()) {
+            if (currentHandRank.fst) {
                 // if the calculations had a positive result then a new pair is created that has the rank type based on
                 // the current rank's calculator associated value ( see map )
                 // and as points the points that the pointRanker has generated
-                return new Pair<>(rank.getKey(),pointsRanker(rank.getKey(),currentHandRank.getValue()));
+                return new Pair<>(rank.getKey(),pointsRanker(rank.getKey(),currentHandRank.snd));
             }
         }
         // if after all calculations no result can be determined then the algorithm defaults to high card

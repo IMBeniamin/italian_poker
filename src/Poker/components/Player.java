@@ -3,7 +3,7 @@ package Poker.components;
 import Poker.logic.PlayerHandLogic;
 import Poker.util.PokerHands;
 import Poker.util.Suits;
-import javafx.util.Pair;
+import com.sun.tools.javac.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,8 +58,8 @@ public class Player implements Comparable<Player>{
      */
     public void calcHandRank() {
         Pair<PokerHands, Integer> points = PlayerHandLogic.calcHandRank(this); // calc rank
-        this.handRank = points.getKey();
-        this.handPoints = points.getValue();
+        this.handRank = points.fst;
+        this.handPoints = points.snd;
     }
 
     /**

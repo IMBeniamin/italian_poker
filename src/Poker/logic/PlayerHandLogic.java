@@ -4,9 +4,8 @@ import Poker.components.Card;
 import Poker.components.Player;
 import Poker.util.PokerHands;
 import Poker.util.Suits;
-import javafx.util.Pair;
+import com.sun.tools.javac.util.Pair;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.*;
 
 /**
