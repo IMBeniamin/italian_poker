@@ -2,8 +2,11 @@ package Poker.components;
 
 import Poker.logic.PlayerHandLogic;
 import Poker.util.PokerHands;
+import Poker.util.Suits;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,6 +17,9 @@ public class Player implements Comparable<Player>{
     private final List<Card> hand;
     private final String name;
     private PokerHands handRank;
+    private int handPoints;
+    private HashMap<Suits, List<Card>> suitsMap;
+    private HashMap<Integer, List<Card>> valuesMap;
 
     public Player(String name) {
         this.name = name;
@@ -51,7 +57,9 @@ public class Player implements Comparable<Player>{
      * This function should be called only after the hand is final
      */
     public void calcHandRank() {
-        this.handRank = PlayerHandLogic.calcHandRank(this); // calc rank
+        Pair<PokerHands, Integer> points = PlayerHandLogic.calcHandRank(this); // calc rank
+        this.handRank = points.getKey();
+        this.handPoints = points.getValue();
     }
 
     /**
@@ -64,7 +72,7 @@ public class Player implements Comparable<Player>{
         for (Card card : this.hand) {
             outData.append(card.toString()).append("\n");
         }
-        outData.append(this.handRank).append("\n");
+        outData.append(this.handRank).append(" - ").append(this.handPoints).append(" points").append("\n");
         return outData.toString();
     }
 
@@ -86,7 +94,7 @@ public class Player implements Comparable<Player>{
         htmlData.append("</div>\n");
 
         htmlData.append("<div class=\"header\">");
-        htmlData.append("<p>").append(this.handRank).append("</p>\n");
+        htmlData.append("<p>").append(this.handRank).append(" - ").append(this.handPoints).append(" points").append("</p>\n");
         htmlData.append("</div>\n\n");
 
         htmlData.append("</div>\n");
@@ -100,6 +108,30 @@ public class Player implements Comparable<Player>{
      */
     @Override
     public int compareTo(Player o) {
-        return Integer.compare(this.getHandRank().ordinal(), o.getHandRank().ordinal());
+        return Integer.compare(this.handRank.ordinal() * 100 + this.handPoints, o.getHandRank().ordinal() * 100 + o.getHandPoints());
+    }
+
+    public HashMap<Suits, List<Card>> getSuitsMap() {
+        return suitsMap;
+    }
+
+    public void setSuitsMap(HashMap<Suits, List<Card>> suitsMap) {
+        this.suitsMap = suitsMap;
+    }
+
+    public HashMap<Integer, List<Card>> getValuesMap() {
+        return valuesMap;
+    }
+
+    public void setValuesMap(HashMap<Integer, List<Card>> valuesMap) {
+        this.valuesMap = valuesMap;
+    }
+
+    public int getHandPoints() {
+        return handPoints;
+    }
+
+    public void setHandPoints(int handPoints) {
+        this.handPoints = handPoints;
     }
 }

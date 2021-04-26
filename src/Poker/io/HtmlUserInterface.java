@@ -154,7 +154,13 @@ public class HtmlUserInterface implements UserInterface<HtmlUserInterface> {
 
             htmlOut.append(rawHtmlData);
             // used to open the file
-            Desktop.getDesktop().browse(htmlData.toURI());
+            if (Desktop.isDesktopSupported())
+                Desktop.getDesktop().browse(htmlData.toURI());
+            else {
+                System.err.println("The system does not support opening the file in a browser.");
+                System.err.println("The path to the file is: " + htmlData.toURI());
+            }
+
 
             htmlOut.close();
             System.out.println("This round is done.");

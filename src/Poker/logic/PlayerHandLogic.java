@@ -4,17 +4,20 @@ import Poker.components.Card;
 import Poker.components.Player;
 import Poker.util.PokerHands;
 import Poker.util.Suits;
+import javafx.util.Pair;
 
-import java.util.HashMap;
+import java.awt.image.AreaAveragingScaleFilter;
+import java.util.*;
 
 /**
  * Allows the user to interact with the hand rank calculation algorithms which returns the type of hand the user has
  */
 public class PlayerHandLogic {
-    static public PokerHands calcHandRank(Player player) {
-        HashMap<Suits, Integer> suitsMap = HandMapper.suitsMapper(player);
-        HashMap<Integer, Integer> valuesMap = HandMapper.valueMapper(player);
-        return HandRanking.getHandRank(suitsMap, valuesMap);
+    static public Pair<PokerHands, Integer> calcHandRank(Player player) {
+        player.setSuitsMap(HandMapper.suitsMapper(player));
+        player.setValuesMap(HandMapper.valueMapper(player));
+
+        return HandRanking.getHandRank(player);
     }
 }
 
@@ -25,14 +28,18 @@ class HandMapper {
     /**
      * Generates a map in which to each value of card in the player's hand is associated the number of occurrences of the same value
      * @param player Player from which data will be extracted
-     * @return A map that contains all hand values and their associated values
+     * @return A map that contains all hand values and their associated cards
      */
-    static public HashMap<Integer, Integer> valueMapper(Player player) {
+    static public HashMap<Integer, List<Card>> valueMapper(Player player) {
 
-        HashMap<Integer, Integer> valuesMap = new HashMap<>();
+        HashMap<Integer, List<Card>> valuesMap = new HashMap<>();
         for (Card card : player.getHand()) {
-            valuesMap.computeIfPresent(card.getValue(), (k,v) -> v += 1 );
-            valuesMap.putIfAbsent(card.getValue(), 1);
+            if (valuesMap.containsKey(card.getValue())) {
+                ArrayList<Card> tempList = new ArrayList<>(valuesMap.get(card.getValue()));
+                tempList.add(card);
+                valuesMap.put(card.getValue(), tempList);
+            }
+            valuesMap.putIfAbsent(card.getValue(), Collections.singletonList(card));
         }
         return valuesMap;
     }
@@ -42,18 +49,21 @@ class HandMapper {
      * @param player Player from which data will be extracted
      * @return A map that contains all possible suits values and their associated number of occurrences
      */
-    static public HashMap<Suits, Integer> suitsMapper(Player player) {
+    static public HashMap<Suits, List<Card>> suitsMapper(Player player) {
 
-        HashMap<Suits, Integer> suitsMap = new HashMap<>();
-        suitsMap.put(Suits.Clubs, 0);
-        suitsMap.put(Suits.Diamonds, 0);
-        suitsMap.put(Suits.Hearts, 0);
-        suitsMap.put(Suits.Spades, 0);
+        HashMap<Suits, List<Card>> suitsMap = new HashMap<>();
+
+        suitsMap.put(Suits.Clubs, new ArrayList<>());
+        suitsMap.put(Suits.Diamonds, new ArrayList<>());
+        suitsMap.put(Suits.Hearts, new ArrayList<>());
+        suitsMap.put(Suits.Spades, new ArrayList<>());
 
         for (Card card : player.getHand()) {
-                Suits temp = card.getSuit();
-                suitsMap.merge(temp, 1, Integer::sum);
-            }
+                Suits tempSuit = card.getSuit();
+                ArrayList<Card> tempList = new ArrayList<>(suitsMap.get(tempSuit));
+                tempList.add(card);
+                suitsMap.put(tempSuit, tempList);
+        }
         return suitsMap;
     }
 }

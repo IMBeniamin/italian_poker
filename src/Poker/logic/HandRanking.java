@@ -1,7 +1,10 @@
 package Poker.logic;
 
+import Poker.components.Card;
+import Poker.components.Player;
 import Poker.util.PokerHands;
 import Poker.util.Suits;
+import javafx.util.Pair;
 
 import java.util.*;
 
@@ -10,7 +13,7 @@ import java.util.*;
  * Interface which contains a method which is implemented through a lambda later and provides a way to call it
  */
 interface HandRankingCalculator {
-    boolean calculate(HashMap<Suits, Integer> suitsMap, HashMap<Integer, Integer> valuesMap);
+    Pair<Boolean, Integer> calculate(HashMap<Suits, List<Card>> suitsMap, HashMap<Integer, List<Card>> valuesMap);
 }
 
 /**
@@ -28,50 +31,107 @@ public class HandRanking {
         // Each lambda is added to the map using the put method
         HandRanking.map.put(PokerHands.RoyalFlush, (suitsMap, valuesMap) -> {
             for (int i = 10; i < 15; i++)
-                if (!valuesMap.containsKey(i)) return false;
-            return suitsMap.containsValue(5);
+                if (!valuesMap.containsKey(i)) return new Pair<>(false, 0);
+            for (Map.Entry<Suits, List<Card>> suitEntry : suitsMap.entrySet()) {
+                if (suitEntry.getValue().size() == 5)
+                    return new Pair<>(true, suitEntry.getValue().stream().mapToInt(Card::getPoints).sum());
+            }
+            return new Pair<>(false, 0);
+        });
+        HandRanking.map.put(PokerHands.StraightFlush, (suitsMap, valuesMap) -> {
+            Pair<Boolean, Integer> straight = HandRanking.map.get(PokerHands.Straight).calculate(suitsMap, valuesMap);
+            Pair<Boolean, Integer> flush = HandRanking.map.get(PokerHands.Flush).calculate(suitsMap, valuesMap);
+            boolean isStraightFlush = straight.getKey() && flush.getKey();
+
+            return new Pair<>(isStraightFlush, straight.getValue() + flush.getValue());
+        });
+        HandRanking.map.put(PokerHands.FourOfAKind, (suitsMap, valuesMap) -> {
+            for (Map.Entry<Integer, List<Card>> valueEntry : valuesMap.entrySet())
+                if (valueEntry.getValue().size() == 4)
+                    return new Pair<>(true, valueEntry.getValue().stream().mapToInt(Card::getPoints).sum());
+            return new Pair<>(false, 0);
+        });
+        HandRanking.map.put(PokerHands.Flush, (suitsMap, valuesMap) -> {
+            for (Map.Entry<Suits, List<Card>> suitEntry : suitsMap.entrySet())
+                if (suitEntry.getValue().size() == 5)
+                    return new Pair<>(true, suitEntry.getValue().stream().mapToInt(Card::getPoints).sum());
+            return new Pair<>(false, 0);
         });
 
-        HandRanking.map.put(PokerHands.StraightFlush, (suitsMap, valuesMap) ->
-                HandRanking.map.get(PokerHands.Straight).calculate(suitsMap, valuesMap)
-                        &&
-                        suitsMap.containsValue(5));
-
-        HandRanking.map.put(PokerHands.FourOfAKind, (suitsMap, valuesMap) -> valuesMap.containsValue(4));
-
-        HandRanking.map.put(PokerHands.Flush, (suitsMap, valuesMap) -> suitsMap.containsValue(5));
-
-        HandRanking.map.put(PokerHands.FullHouse, (suitsMap, valuesMap) ->
-                HandRanking.map.get(PokerHands.OnePair).calculate(suitsMap, valuesMap)
-                        &&
-                        HandRanking.map.get(PokerHands.ThreeOfAKind).calculate(suitsMap, valuesMap));
+        HandRanking.map.put(PokerHands.FullHouse, (suitsMap, valuesMap) -> {
+            Pair<Boolean, Integer> onePair = HandRanking.map.get(PokerHands.OnePair).calculate(suitsMap, valuesMap);
+            Pair<Boolean, Integer> threeOfKind = HandRanking.map.get(PokerHands.ThreeOfAKind).calculate(suitsMap, valuesMap);
+            return new Pair<>(onePair.getKey() && threeOfKind.getKey(), onePair.getValue() + threeOfKind.getValue());
+        });
 
         HandRanking.map.put(PokerHands.Straight, (suitsMap, valuesMap) -> {
-            for (Integer value : valuesMap.values())
-                if ( value > 1 ) return false;
+            if (valuesMap.values().stream().anyMatch(arr -> arr.size() > 1)) return new Pair<>(false, 0);
 
             SortedSet<Integer> keys = new TreeSet<>(valuesMap.keySet());
-            return keys.last() - keys.first() == keys.size() - 1;
+            boolean isStraight = keys.last() - keys.first() == keys.size() - 1;
+            int points = 0;
+            // nested one-liner sum
+            // please don't do this <3
+            if (isStraight) points = suitsMap.values().stream().mapToInt(cardList -> cardList.stream().mapToInt(Card::getPoints).sum()).sum();
+            return new Pair<>(isStraight, points);
         });
 
-        HandRanking.map.put(PokerHands.ThreeOfAKind, (suitsMap, valuesMap) -> valuesMap.containsValue(3));
+        HandRanking.map.put(PokerHands.ThreeOfAKind, (suitsMap, valuesMap) -> {
+            for (Map.Entry<Integer, List<Card>> valueEntry : valuesMap.entrySet())
+                if (valueEntry.getValue().size() == 3)
+                    return new Pair<>(true, valueEntry.getValue().stream().mapToInt(Card::getPoints).sum());
+            return new Pair<>(false, 0);
+        });
 
         HandRanking.map.put(PokerHands.TwoPair, (suitsMap, valuesMap) -> {
-            int pairs = 0;
-            for (Map.Entry<Integer, Integer> CardValue : valuesMap.entrySet())
-                if (CardValue.getValue() == 2) pairs += 1;
-            return pairs == 2;
+            int pairs = 0, points = 0;
+            for (Map.Entry<Integer, List<Card>> cardEntry : valuesMap.entrySet())
+                if (cardEntry.getValue().size() == 2) {
+                    pairs++;
+                    points += cardEntry.getValue().stream().mapToInt(Card::getPoints).sum();
+                }
+            if (pairs >= 2) return new Pair<>(true, points);
+            else return new Pair<>(false, 0);
         });
 
-        HandRanking.map.put(PokerHands.OnePair, (suitsMap, valuesMap) -> valuesMap.containsValue(2));
+        HandRanking.map.put(PokerHands.OnePair, (suitsMap, valuesMap) -> {
+            for (Map.Entry<Integer, List<Card>> cardEntry : valuesMap.entrySet())
+                if (cardEntry.getValue().size() == 2)
+                    return new Pair<>(true, cardEntry.getValue().stream().mapToInt(Card::getPoints).sum());
+            return new Pair<>(false, 0);
+        });
+    }
+    /**
+     * Ranking algorithm used for hand ranking
+     * the total points are calculated with a weighted sum:
+     *     the hand rank has a magnitude of a 100:1 in respect to the card points
+     *     the card points are then used to distinguish between hands with the same rank
+     * @param handRank Rank of the hand
+     * @param cardsPoint The total points of the user's hand (note: this is not a sum of all the cards' points, but rather
+     *                   a sum of the cards that are valid towards the rank and thus have to be calculated individually for
+     *                   each rank
+     */
+    static private int pointsRanker(PokerHands handRank, int cardsPoint) {
+        return handRank.ordinal() * 100 + cardsPoint;
     }
 
-    static public PokerHands getHandRank(HashMap<Suits, Integer> suitsMap, HashMap<Integer, Integer> valuesMap) {
+    static public Pair<PokerHands, Integer> getHandRank(Player player) {
+        // temporary placeholder for the hand rank that is being evaluated
+        Pair<Boolean, Integer> currentHandRank;
+        // iterates through all the map's ranks
         for (Map.Entry<PokerHands, HandRankingCalculator> rank : HandRanking.map.entrySet()) {
-            if (rank.getValue().calculate(suitsMap, valuesMap)) {
-                return rank.getKey();
+            // sets the current rank variable to the calculated value based on rank's handRankingCalculator
+            currentHandRank = rank.getValue().calculate(player.getSuitsMap(), player.getValuesMap());
+            // checks if the calculations had a positive result
+            if (currentHandRank.getKey()) {
+                // if the calculations had a positive result then a new pair is created that has the rank type based on
+                // the current rank's calculator associated value ( see map )
+                // and as points the points that the pointRanker has generated
+                return new Pair<>(rank.getKey(),pointsRanker(rank.getKey(),currentHandRank.getValue()));
             }
         }
-        return PokerHands.HighCard;
+        // if after all calculations no result can be determined then the algorithm defaults to high card
+        // the points associated with it are the points of the highest card in the player's hand
+        return new Pair<>(PokerHands.HighCard, pointsRanker(PokerHands.HighCard,Collections.max(player.getHand()).getPoints()));
     }
 }

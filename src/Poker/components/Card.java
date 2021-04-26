@@ -6,7 +6,7 @@ import Poker.util.SuitsIdentifier;
 /**
  * Class that represents a playing card.
  */
-public class Card {
+public class Card implements Comparable<Card>{
     private final String identifier;
     private final String fancyName;
     private final Suits suit;
@@ -60,5 +60,10 @@ public class Card {
                 "\" alt=\"" + this.identifier + "\">\n" +
                 "<p>" + this.fancyName + "</p>\n" +
                 "</div>\n";
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        return this.getPoints() - o.getPoints();
     }
 }
